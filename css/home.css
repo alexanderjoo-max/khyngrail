@@ -1,0 +1,233 @@
+/* ==========================================================================
+   Home
+   ========================================================================== */
+
+/* --- Hero ----------------------------------------------------------------
+   One full-width photograph. The statement sits on the quiet left third of
+   the frame, which is where the picture leaves room for it.                */
+
+.hero {
+  position: relative;
+  margin-top: calc(-1 * var(--header-h));
+  min-height: min(92svh, 52rem);
+  display: grid;
+  overflow: hidden;
+}
+
+.hero__media { position: absolute; inset: 0; margin: 0; }
+.hero__media img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: 68% 26%;
+  will-change: transform;
+}
+
+.hero__inner {
+  position: relative;
+  width: var(--wrap);
+  margin-inline: auto;
+  display: grid;
+  align-items: center;
+  padding-top: var(--header-h);
+  padding-bottom: var(--s8);
+}
+@media (max-width: 61.99rem) { .hero__inner { align-items: end; } }
+
+.hero__copy { max-width: min(30rem, 52%); }
+.hero__title { margin-bottom: var(--s6); }
+
+/* --- Credential bar ------------------------------------------------------
+   Rides the seam between the hero and the oil band.                        */
+
+.creds { position: relative; z-index: 5; background: var(--cream); }
+
+.creds__pill {
+  width: var(--wrap);
+  margin-inline: auto;
+  margin-top: calc(-1 * clamp(2rem, 4vw, 3.5rem));
+  margin-bottom: calc(-1 * clamp(2rem, 4vw, 3.5rem));
+  background: var(--bone);
+  border-radius: 3rem;
+  padding: clamp(1.5rem, 2.6vw, 2.25rem) clamp(1.5rem, 4vw, 3.5rem);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--s6) var(--s4);
+  box-shadow: 0 24px 60px rgba(28, 28, 28, 0.08);
+}
+@media (min-width: 56rem) {
+  .creds__pill { grid-template-columns: repeat(5, 1fr); border-radius: 999px; }
+}
+
+.cred { display: grid; justify-items: center; align-content: end; gap: var(--s3); text-align: center; }
+.cred img { height: 2.6rem; width: auto; }
+.cred span {
+  font-family: var(--display); font-style: italic; font-weight: 500;
+  font-size: var(--fs-base); letter-spacing: -0.01em;
+}
+
+/* --- Oil band ------------------------------------------------------------ */
+
+.oil { position: relative; overflow: hidden; }
+.oil__media { position: absolute; inset: 0; }
+.oil__media img {
+  width: 100%; height: 100%; object-fit: cover;
+  transform: scale(var(--oil-scale, 1.16));
+  will-change: transform;
+}
+
+.oil__inner {
+  position: relative;
+  width: var(--wrap); margin-inline: auto;
+  min-height: clamp(30rem, 66vh, 46rem);
+  display: grid; place-items: center;
+  padding-block: clamp(6rem, 11vw, 9rem);
+}
+
+.oil__card {
+  background: var(--coral); color: var(--white);
+  width: min(34rem, 100%);
+  padding: clamp(2rem, 4.5vw, 3.5rem);
+  text-align: center;
+  display: grid; gap: var(--s5); justify-items: center;
+}
+.oil__card p { color: rgba(255, 255, 255, 0.94); }
+
+/* --- Product spotlight --------------------------------------------------- */
+
+.spot { background: var(--cream); padding-block: var(--band); }
+
+.spot__inner {
+  width: var(--wrap); margin-inline: auto;
+  display: grid; gap: var(--s8); align-items: center;
+}
+@media (min-width: 62rem) { .spot__inner { grid-template-columns: 1fr 1.05fr; gap: var(--s9); } }
+
+.spot__copy { display: grid; justify-items: center; gap: var(--s4); text-align: center; }
+.spot__bottle {
+  width: min(9rem, 42%);
+  margin-bottom: var(--s4);
+  animation: float 7s ease-in-out infinite;
+  filter: drop-shadow(0 26px 44px rgba(28, 28, 28, 0.13));
+}
+@keyframes float {
+  0%, 100% { transform: translateY(-0.4rem); }
+  50% { transform: translateY(0.4rem); }
+}
+
+.spot__sku { font-family: var(--display); font-weight: 600; font-size: var(--fs-sm); letter-spacing: 0.04em; }
+.spot__copy .lede { color: var(--ink-70); max-width: 40ch; }
+
+.spot__still { position: relative; overflow: hidden; aspect-ratio: 4 / 3.4; margin: 0; }
+.spot__still img { width: 100%; height: 100%; object-fit: cover; }
+
+/* --- Reviews -------------------------------------------------------------
+   The videos are the evidence, so they run large and edge to edge on the
+   coral, staggered like a wall of clips rather than boxed in a card.       */
+
+.reviews { background: var(--coral); color: var(--white); padding-block: var(--band); overflow: hidden; }
+.reviews__inner { width: var(--wrap); margin-inline: auto; }
+.reviews__title { text-align: center; margin-bottom: var(--s8); }
+
+.reviews__wall { display: grid; gap: var(--s6); }
+@media (min-width: 52rem) {
+  .reviews__wall { grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2.5vw, 2rem); }
+}
+
+.vcard { margin: 0; }
+
+.vcard__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 2 / 3;
+  background: #0f1315;
+}
+.vcard__media img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 900ms var(--ease);
+}
+.vcard:hover .vcard__media img { transform: scale(1.05); }
+
+.vcard__play {
+  position: absolute;
+  top: 56.3%; left: 50%;
+  width: 24%;
+  transform: translate(-50%, -50%);
+  color: var(--white);
+}
+.vcard__play i {
+  display: grid; place-items: center;
+  width: 100%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--coral);
+  box-shadow: 0 8px 30px rgba(28, 28, 28, 0.28);
+  transition: transform 480ms var(--ease), background 420ms var(--ease);
+}
+.vcard__play i::after {
+  content: "";
+  width: 0; height: 0; margin-left: 3px;
+  border-left: 0.85em solid currentColor;
+  border-top: 0.55em solid transparent; border-bottom: 0.55em solid transparent;
+}
+.vcard:hover .vcard__play i { transform: scale(1.12); background: var(--ink); }
+
+/* The quote lives on the clip, under a scrim, so picture and words are one. */
+.vcard__cap {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: var(--s8) var(--s5) var(--s5);
+  background: linear-gradient(transparent, rgba(20, 20, 20, 0.82));
+  color: var(--white);
+  text-align: center;
+}
+.vcard__quote {
+  font-family: var(--display); font-style: italic; font-weight: 500;
+  font-size: var(--fs-lg); line-height: 1.15; letter-spacing: -0.02em;
+}
+.vcard__who { margin-top: var(--s2); font-size: var(--fs-sm); color: rgba(255, 255, 255, 0.72); }
+
+/* The long review gets its own quiet page, set on cream against the coral. */
+.reviews__quote {
+  position: relative;
+  width: min(46rem, 100%);
+  margin: clamp(3.5rem, 8vw, 6.5rem) auto 0;
+  padding: clamp(2.25rem, 5vw, 3.75rem);
+  background: var(--cream);
+  color: var(--ink);
+}
+.reviews__quote::before {
+  content: "\201C";
+  position: absolute;
+  top: 0.06em; left: 0.1em;
+  z-index: 0;
+  font-family: var(--serif);
+  font-size: clamp(7rem, 14vw, 12rem);
+  line-height: 1;
+  color: var(--coral);
+  opacity: 0.16;
+  pointer-events: none;
+}
+.reviews__quote p {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.7;
+}
+.reviews__quote footer {
+  position: relative; z-index: 1;
+  margin-top: var(--s5);
+  font-family: var(--display); font-style: italic;
+  font-size: var(--fs-base);
+  color: var(--ink-50);
+}
+
+.hashtag {
+  display: block;
+  margin-top: clamp(2.5rem, 6vw, 4.5rem);
+  text-align: center;
+  font-family: var(--display); font-style: italic; font-weight: 500;
+  font-size: clamp(2.25rem, 7vw, 4.5rem);
+  letter-spacing: -0.03em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.95);
+  transition: color 600ms var(--ease), -webkit-text-stroke-color 600ms var(--ease);
+}
+.reviews:hover .hashtag { color: var(--white); -webkit-text-stroke-color: transparent; }

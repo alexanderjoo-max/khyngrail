@@ -1,0 +1,191 @@
+/* ==========================================================================
+   Components
+   ========================================================================== */
+
+/* --- Buttons -------------------------------------------------------------
+   Square, italic, sentence case — the build's own button voice. The fill
+   slides away on hover so the label sits in an outline instead.           */
+
+.btn {
+  --btn-bg: var(--coral);
+  --btn-fg: var(--white);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  padding: 1em 2.6em;
+  border: 1px solid var(--btn-bg);
+  background: transparent;
+  color: var(--btn-fg);
+  font-family: var(--display);
+  font-weight: 500;
+  font-style: italic;
+  font-size: var(--fs-base);
+  letter-spacing: -0.01em;
+  line-height: 1;
+  overflow: hidden;
+  isolation: isolate;
+  cursor: pointer;
+  transition: color var(--t) var(--ease), border-color var(--t) var(--ease);
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  background: var(--btn-bg);
+  transform-origin: left;
+  transition: transform 520ms var(--ease);
+}
+.btn:hover::before, .btn:focus-visible::before { transform: scaleX(0); }
+.btn:hover, .btn:focus-visible { color: var(--btn-bg); }
+
+.btn--ink { --btn-bg: var(--ink); --btn-fg: var(--cream); }
+.btn--white { --btn-bg: var(--white); --btn-fg: var(--ink); }
+.btn--block { display: flex; width: 100%; }
+.btn--sm { padding: 0.8em 1.8em; font-size: var(--fs-sm); }
+
+/* Outline variants fill instead of empty */
+.btn--outline { --btn-bg: var(--ink); --btn-fg: var(--ink); }
+.btn--outline::before { transform: scaleX(0); }
+.btn--outline:hover::before, .btn--outline:focus-visible::before { transform: scaleX(1); }
+.btn--outline:hover, .btn--outline:focus-visible { color: var(--cream); }
+
+.btn--outlineLight { --btn-bg: var(--white); --btn-fg: var(--white); }
+.btn--outlineLight::before { transform: scaleX(0); }
+.btn--outlineLight:hover::before, .btn--outlineLight:focus-visible::before { transform: scaleX(1); }
+.btn--outlineLight:hover, .btn--outlineLight:focus-visible { color: var(--coral); }
+
+/* --- Text link ---------------------------------------------------------- */
+
+.link {
+  position: relative;
+  font-family: var(--display);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--track-mid);
+  text-transform: uppercase;
+  padding-bottom: 0.3em;
+}
+.link::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+  height: 1px; background: currentColor;
+  transform: scaleX(0); transform-origin: right;
+  transition: transform 420ms var(--ease);
+}
+.link:hover::after, .link:focus-visible::after { transform: scaleX(1); transform-origin: left; }
+
+/* --- Section head ------------------------------------------------------- */
+
+.shead { display: grid; justify-items: center; gap: var(--s4); text-align: center; margin-bottom: var(--s8); }
+.shead p { max-width: 52ch; color: var(--ink-70); }
+.shead--dark p { color: var(--on-dark-70); }
+
+/* --- Spec plate ----------------------------------------------------------
+   The KG215 label — hairline rules, centred, generous air — used wherever a
+   set of facts needs to read as product copy rather than marketing.        */
+
+.plate { width: 100%; }
+
+.plate__line {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s5);
+  padding: 0.8rem 0;
+  font-size: var(--fs-sm);
+  color: var(--ink-50);
+}
+.plate__line::before {
+  content: ""; position: absolute; inset-inline: 0; top: 0;
+  height: 1px; background: currentColor; opacity: 0.3;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 800ms var(--ease) var(--d, 0ms);
+}
+.plate__line > span:last-child { color: var(--ink); text-align: right; }
+.plate.is-in .plate__line::before { transform: scaleX(1); }
+
+.plate--center { max-width: 24rem; margin-inline: auto; text-align: center; }
+.plate--center .plate__line { display: block; }
+.plate--center .plate__line > span:last-child { text-align: center; }
+
+.plate--onDark .plate__line { color: var(--on-dark-45); }
+.plate--onDark .plate__line > span:last-child { color: var(--white); }
+
+/* --- Stars -------------------------------------------------------------- */
+
+.stars { display: inline-flex; gap: 0.22rem; }
+.stars svg { width: 1rem; height: 1rem; fill: var(--coral); opacity: 0; transform: scale(0.4) rotate(-20deg); }
+.is-in .stars svg, .stars--static svg { animation: star-pop 480ms var(--ease) forwards; }
+.stars svg:nth-child(1) { animation-delay: 40ms; }
+.stars svg:nth-child(2) { animation-delay: 110ms; }
+.stars svg:nth-child(3) { animation-delay: 180ms; }
+.stars svg:nth-child(4) { animation-delay: 250ms; }
+.stars svg:nth-child(5) { animation-delay: 320ms; }
+
+@keyframes star-pop { to { opacity: 1; transform: none; } }
+
+/* --- Fields ------------------------------------------------------------- */
+
+.field {
+  display: flex; align-items: center;
+  border: 1px solid var(--on-dark-18);
+  background: transparent;
+  padding: 0 1.1rem;
+  transition: border-color var(--t) var(--ease);
+}
+.field:focus-within { border-color: var(--white); }
+.field input, .field textarea {
+  flex: 1; width: 100%;
+  background: none; border: 0;
+  padding: 1rem 0;
+  font-family: var(--display); font-style: italic; font-size: var(--fs-base);
+  color: inherit;
+}
+.field textarea { resize: vertical; min-height: 5.5rem; }
+.field input::placeholder, .field textarea::placeholder { color: var(--on-dark-45); }
+.field input:focus, .field textarea:focus { outline: none; }
+
+.field--ink { border-color: var(--rule); }
+.field--ink:focus-within { border-color: var(--ink); }
+.field--ink input::placeholder, .field--ink textarea::placeholder { color: var(--ink-50); }
+
+.form-status {
+  min-height: 1.4em;
+  font-family: var(--display); font-size: var(--fs-xs);
+  letter-spacing: var(--track-mid); text-transform: uppercase;
+  opacity: 0; transform: translateY(-4px);
+  transition: opacity var(--t) var(--ease), transform var(--t) var(--ease);
+}
+.form-status.is-shown { opacity: 1; transform: none; }
+
+/* --- Accordion ---------------------------------------------------------- */
+
+.accordion { border-top: 1px solid var(--rule); }
+.acc__item { border-bottom: 1px solid var(--rule); }
+
+.acc__trigger {
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s5);
+  padding: var(--s5) 0;
+  text-align: left;
+  font-family: var(--display); font-weight: 500;
+  font-size: var(--fs-xs); letter-spacing: var(--track-mid); text-transform: uppercase;
+  transition: color var(--t-fast) var(--ease);
+}
+.acc__trigger:hover { color: var(--coral); }
+
+.acc__trigger i { position: relative; flex: none; width: 12px; height: 12px; }
+.acc__trigger i::before, .acc__trigger i::after {
+  content: ""; position: absolute; inset: 50% 0 auto 0;
+  height: 1px; background: currentColor;
+  transition: transform 420ms var(--ease);
+}
+.acc__trigger i::after { transform: rotate(90deg); }
+.acc__trigger[aria-expanded="true"] i::after { transform: rotate(0deg); }
+.acc__trigger[aria-expanded="true"] { color: var(--coral); }
+
+.acc__panel { height: 0; overflow: hidden; transition: height 440ms var(--ease); }
+.acc__panel > div { padding-bottom: var(--s5); color: var(--ink-70); max-width: 62ch; }
+.acc__panel ul { margin: 0; padding-left: 1.1em; }

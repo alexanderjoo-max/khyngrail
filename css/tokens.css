@@ -1,0 +1,77 @@
+/* ==========================================================================
+   Khyn & Grail — design tokens
+   Palette and type taken from the KG215 build: coral used as a field, not an
+   accent; cream ground; Jost italic display over a serif text face.
+   ========================================================================== */
+
+:root {
+  --coral: #ff606c;
+  --coral-deep: #f24d59;
+  --cream: #f7f2e7;
+  --bone: #fffcf5;
+  --ink: #1c1c1c;
+  --ink-black: #171717;
+  --slate: #3d5663;
+  --navy: #1e2633;
+  --gold: #fcd14e;
+  --white: #ffffff;
+
+  --rule: rgba(28, 28, 28, 0.14);
+  --rule-strong: rgba(28, 28, 28, 0.3);
+  --ink-70: rgba(28, 28, 28, 0.72);
+  --ink-50: rgba(28, 28, 28, 0.52);
+  --on-dark-70: rgba(255, 255, 255, 0.72);
+  --on-dark-45: rgba(255, 255, 255, 0.45);
+  --on-dark-18: rgba(255, 255, 255, 0.18);
+
+  --display: "Jost", "Gill Sans", "Trebuchet MS", sans-serif;
+  --serif: "Source Serif 4", "Minion Pro", "Palatino Linotype", Palatino, Georgia, serif;
+
+  --fs-micro: 0.6875rem;
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.9375rem;
+  --fs-base: 1.0625rem;
+  --fs-md: 1.1875rem;
+  --fs-lg: clamp(1.25rem, 1.7vw, 1.5rem);
+  --fs-xl: clamp(1.5rem, 2.6vw, 2.1rem);
+  --fs-2xl: clamp(1.9rem, 4vw, 3.1rem);
+  --fs-3xl: clamp(2.4rem, 5.6vw, 4.4rem);
+  --fs-hero: clamp(3rem, 8.5vw, 7rem);
+
+  --track-wide: 0.2em;
+  --track-mid: 0.1em;
+
+  --s1: 0.25rem;
+  --s2: 0.5rem;
+  --s3: 0.75rem;
+  --s4: 1rem;
+  --s5: 1.5rem;
+  --s6: 2rem;
+  --s7: 3rem;
+  --s8: 4.5rem;
+  --s9: 6.5rem;
+  --s10: 9rem;
+  --band: clamp(4rem, 9vw, 8rem);
+
+  --wrap: min(84rem, calc(100% - 2.5rem));
+  /* Distance from the viewport edge to the content column — safe to use
+     inside nested elements, where `--wrap` would resolve against the wrong box. */
+  --gutter: max(1.25rem, calc((100vw - 84rem) / 2));
+  --measure: 46ch;
+  --header-h: 4.5rem;
+  --announce-h: 2.75rem;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-fast: 220ms;
+  --t: 460ms;
+  --t-slow: 900ms;
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --wrap: min(84rem, calc(100% - 5rem));
+    --gutter: max(2.5rem, calc((100vw - 84rem) / 2));
+    --header-h: 5.25rem;
+  }
+}

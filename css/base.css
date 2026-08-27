@@ -1,0 +1,128 @@
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+html { scroll-behavior: smooth; }
+html, body { max-width: 100%; overflow-x: clip; }
+
+body {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: var(--fs-base);
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--cream);
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.is-locked { overflow: hidden; }
+::selection { background: var(--coral); color: var(--white); }
+
+:focus-visible { outline: 2px solid var(--coral); outline-offset: 4px; }
+
+.wrap { width: var(--wrap); margin-inline: auto; }
+
+.skip-link {
+  position: fixed; left: 1rem; top: -5rem; z-index: 200;
+  background: var(--ink); color: var(--bone);
+  padding: 0.75rem 1.25rem;
+  font-family: var(--display); font-size: var(--fs-xs);
+  letter-spacing: var(--track-mid); text-transform: uppercase;
+  transition: top var(--t-fast) var(--ease);
+}
+.skip-link:focus { top: 1rem; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+/* --- Type ---------------------------------------------------------------
+   The house voice is Jost italic. Display sizes carry the statements;
+   the serif carries everything that has to be read carefully.             */
+
+.display {
+  font-family: var(--display);
+  font-weight: 500; font-style: italic;
+  font-size: var(--fs-hero);
+  line-height: 0.94;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.h1, .h2 {
+  font-family: var(--display);
+  font-weight: 500; font-style: italic;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+  margin: 0;
+}
+.h1 { font-size: var(--fs-3xl); }
+.h2 { font-size: var(--fs-2xl); }
+.h3 { font-family: var(--display); font-weight: 500; font-style: italic; font-size: var(--fs-xl); letter-spacing: -0.025em; line-height: 1.1; margin: 0; }
+
+.coral { color: var(--coral); }
+
+.label {
+  font-family: var(--display); font-weight: 500; font-style: normal;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--track-wide);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.lede { font-size: var(--fs-md); line-height: 1.6; max-width: var(--measure); }
+.muted { color: var(--ink-50); }
+.prose p + p { margin-top: 1.1em; }
+
+.center { text-align: center; }
+.center .lede, .center .prose { margin-inline: auto; }
+
+/* --- Motion utilities --------------------------------------------------- */
+
+[data-anim] { will-change: transform, opacity; }
+
+.js [data-anim="rise"] {
+  opacity: 0; transform: translate3d(0, 1.6rem, 0);
+  transition: opacity var(--t-slow) var(--ease) var(--d, 0ms),
+              transform var(--t-slow) var(--ease) var(--d, 0ms);
+}
+.js [data-anim="wipe"] {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1100ms var(--ease) var(--d, 0ms);
+}
+.js [data-anim="fade"] {
+  opacity: 0;
+  transition: opacity 1100ms var(--ease) var(--d, 0ms);
+}
+.js [data-anim="zoom"] { transform: scale(1.07); transition: transform 1500ms var(--ease) var(--d, 0ms); }
+
+.js .is-in[data-anim="rise"] { opacity: 1; transform: none; }
+.js .is-in[data-anim="wipe"] { clip-path: inset(0 0 0 0); }
+.js .is-in[data-anim="fade"] { opacity: 1; }
+.js .is-in[data-anim="zoom"] { transform: none; }
+
+/* Masked line reveal for display headings */
+.lines { display: block; }
+.lines .ln { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.js .lines .ln > span {
+  display: block;
+  transform: translate3d(0, 110%, 0);
+  transition: transform 1000ms var(--ease) var(--d, 0ms);
+}
+.js .lines.is-in .ln > span { transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+  [data-anim], .lines .ln > span {
+    opacity: 1 !important; transform: none !important; clip-path: none !important;
+  }
+}
