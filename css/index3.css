@@ -236,3 +236,20 @@
   content: "Our story"; display: block; margin-bottom: var(--s5);
   font-family: var(--display); font-size: var(--fs-micro); letter-spacing: var(--track-wide); text-transform: uppercase; color: rgba(255,255,255,0.75);
 }
+
+/* Pre-order banner stays pinned above the header */
+.page--k3 .announce { position: sticky; top: 0; z-index: 51; }
+.page--k3 .site-header { top: var(--announce-h); }
+
+/* Hero: content clears the credential bar; reviews sit under the button */
+.k3-hero__inner { padding-bottom: calc(var(--s9) + var(--s6)); }
+.k3-hero .k3-hero__cta { flex-direction: column; align-items: flex-start; gap: var(--s4); }
+
+/* Coral manifesto: bottle centred in its column */
+@media (min-width: 60rem) {
+  .page--k3 .manifesto__bottle {
+    top: 0; bottom: 0; margin-block: auto;
+    right: calc(var(--gutter) + 9%);
+    width: auto; height: min(72%, 30rem);
+  }
+}
