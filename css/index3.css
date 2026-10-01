@@ -33,7 +33,7 @@
   padding: calc(var(--header-h) + var(--announce-h) + var(--s7)) 0 var(--s7);
 }
 .k3-hero__title { font-size: clamp(3.4rem, min(11vw, 15vh), 9rem); margin: var(--s4) 0 var(--s5); }
-.k3-hero__sub { max-width: 34ch; font-size: var(--fs-md); color: var(--ink-70); }
+.k3-hero__sub { max-width: none; font-size: var(--fs-md); color: var(--ink-70); }
 .k3-hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s5); margin-top: var(--s6); }
 .k3-proof { display: inline-flex; align-items: center; gap: var(--s3); font-family: var(--display); font-size: var(--fs-sm); color: var(--ink-70); }
 .k3-proof .stars svg { width: 0.9rem; height: 0.9rem; }
