@@ -133,32 +133,9 @@
               <span class="buy__amount">$69</span>
               <span class="buy__ship">&mdash; Preorder, ships November</span>
             </p>
-
-            <div class="buy__block">
-              <p class="label buy__legend">Quantity:</p>
-              <div class="buy__row">
-                <div class="stepper" data-qty>
-                  <button type="button" data-step="down" aria-label="Decrease quantity">&minus;</button>
-                  <span class="stepper__value" data-qty-value aria-live="polite">1</span>
-                  <button type="button" data-step="up" aria-label="Increase quantity">+</button>
-                </div>
-                <button class="btn" type="button" data-add data-k3-main-add>
-                  <span class="btn__swap"><span>Preorder</span><span>Added to bag</span></span>
-                </button>
-              </div>
-            </div>
-
-            <ul class="k3-assure">
-              <li>Single batch &mdash; preorders ship first, in the order placed</li>
-              <li>Vegan, never tested on animals, all skin types</li>
-              <li>4&ndash;5 drops a use; morning or night</li>
-            </ul>
-
-            <div class="plate buy__plate" data-plate>
-              <p class="plate__line" style="--d: 0ms"><span>Formula</span><span>27 pressed botanical oils</span></p>
-              <p class="plate__line" style="--d: 90ms"><span>Skin</span><span>All Skin Types</span></p>
-              <p class="plate__line" style="--d: 180ms"><span>Batch</span><span>Single Batch</span></p>
-              <p class="plate__line" style="--d: 270ms"><span>Origin</span><span>Made in USA</span></p>
+            <div class="k3-buy__cta" data-anim="rise" style="--d: 260ms">
+              <a class="btn" href="product3.html" data-k3-main-add>Shop KG215</a>
+              <a class="link" href="product3.html#ingredients">What&rsquo;s inside</a>
             </div>
           </div>
         </div>
@@ -179,11 +156,6 @@
               <p>One formula. Twenty-seven botanical oils. We take inspiration seriously.
               We don&rsquo;t take shortcuts.</p>
               <a class="btn btn--outline" href="about3.html">Our story</a>
-            </div>
-            <div class="k3-stats" data-anim="rise" style="--d: 280ms">
-              <div><b><span data-count="8">8</span></b><span class="label">Years</span></div>
-              <div><b><span data-count="60">60</span>k</b><span class="label">Formulas</span></div>
-              <div><b><span data-count="27">27</span></b><span class="label">Oils</span></div>
             </div>
           </div>
           <figure class="k3-creed__plate">
@@ -250,22 +222,6 @@
             <h2 class="display k3-big" data-anim="rise" style="--d: 100ms">Taken apart. <em>Put back better.</em></h2>
             <p data-anim="rise" style="--d: 200ms">Eight years, sixty thousand formulas, more expensive bottles taken apart and understood than we can count.</p>
             <a class="btn btn--outlineLight" href="about3.html" data-anim="rise" style="--d: 280ms">Read the story</a>
-        </div>
-      </section>
-
-      <section class="k3-ritual">
-        <div class="k3-ritual__grid">
-          <figure class="k3-ritual__media" data-anim="fade">
-            <img src="assets/img/howto.jpg" alt="Pressing the serum into the skin" loading="lazy" />
-          </figure>
-          <div class="k3-ritual__copy">
-            <h2 class="h2 coral" data-anim="rise">How To Use</h2>
-            <ol class="k3-steps">
-              <li data-anim="rise"><b>1</b><p>Place 4 or 5 drops of oil in hand.</p></li>
-              <li data-anim="rise" style="--d: 120ms"><b>2</b><p>Rub hands together and press serum onto face and neck.</p></li>
-              <li data-anim="rise" style="--d: 240ms"><b>3</b><p>Can be used morning or night.</p></li>
-            </ol>
-          </div>
         </div>
       </section>
 
@@ -462,7 +418,7 @@
         <img src="assets/img/bottle.png" alt="" width="600" height="1316" />
         <p>Botanical Oils Facial Serum <span>$69 &middot; Preorder, ships November</span></p>
       </div>
-      <button class="btn btn--sm" type="button" tabindex="-1" data-k3-sticky-add>Preorder</button>
+      <a class="btn btn--sm" href="product3.html" tabindex="-1" data-k3-sticky-add>Shop now</a>
     </div>
     <script>
       (function () {
@@ -476,10 +432,9 @@
           var show = !seen.main && !seen.hero;
           bar.classList.toggle("is-shown", show);
           bar.setAttribute("aria-hidden", String(!show));
-          bar.querySelector("button").tabIndex = show ? 0 : -1;
+          bar.querySelector(".btn").tabIndex = show ? 0 : -1;
         });
         io.observe(main); io.observe(hero);
-        bar.querySelector("button").addEventListener("click", function () { main.click(); });
       })();
     </script>
 

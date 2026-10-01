@@ -209,3 +209,30 @@
 
 /* Shared hero variant over a darker portrait */
 .k3-hero--portrait .k3-hero__plate img { object-position: 70% 30%; }
+
+.k3-buy__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s5); margin-top: var(--s5); }
+
+/* --- About manifesto, cleaned up: one column of type beside an upright bottle */
+.page--k3 .manifesto::before { display: none; }
+.page--k3 .manifesto { padding-block: calc(var(--band) * 1.1); }
+.page--k3 .manifesto__inner { width: var(--wrap); max-width: none; gap: var(--s5); }
+@media (min-width: 60rem) {
+  .page--k3 .manifesto__inner { width: var(--wrap); padding-right: 34%; }
+  .page--k3 .manifesto__bottle {
+    right: calc(var(--gutter) + 4%); bottom: calc(var(--band) * 1.1);
+    width: clamp(11rem, 17vw, 16rem); opacity: 1; rotate: 0deg;
+  }
+  .js .page--k3 .manifesto__bottle.is-in { transform: none; }
+  .page--k3 .manifesto__bottle:not([data-anim]) { transform: none; }
+}
+.page--k3 .manifesto__lead,
+.page--k3 .manifesto__mid {
+  font-family: var(--serif); font-weight: 400; font-size: var(--fs-md); line-height: 1.6;
+  max-width: 46ch; padding: 0; border: 0; letter-spacing: 0; text-align: left; justify-self: start;
+  color: rgba(255, 255, 255, 0.9);
+}
+.page--k3 .manifesto__kicker { font-size: clamp(2.4rem, 5.6vw, 4.6rem); margin-top: var(--s6); max-width: 14ch; }
+.page--k3 .manifesto__lead::before {
+  content: "Our story"; display: block; margin-bottom: var(--s5);
+  font-family: var(--display); font-size: var(--fs-micro); letter-spacing: var(--track-wide); text-transform: uppercase; color: rgba(255,255,255,0.75);
+}
