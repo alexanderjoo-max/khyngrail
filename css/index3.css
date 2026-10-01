@@ -1,0 +1,174 @@
+/* ==========================================================================
+   index3 — the hybrid home.
+   Brand chrome, palette and type from the KG215 build (site.css); the
+   editorial layouts — full-bleed plates, hung ingredient wall, framed
+   portraits, grain — borrowed from the lookbook. Everything is k3- scoped.
+   ========================================================================== */
+
+.page--k3 { background: var(--cream); }
+
+/* Paper grain, as in the lookbook, but quieter */
+.k3-grain {
+  position: fixed; inset: -6%; z-index: 90; pointer-events: none; opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+.k3-eyebrow { color: var(--coral); }
+.k3-big { font-size: clamp(2.6rem, 7.4vw, 6.4rem); }
+.k3-big em, .k3-hero__title em { font-family: var(--serif); font-weight: 300; font-style: italic; letter-spacing: -0.02em; }
+
+/* --- Hero: lookbook overture, with the buy path above the fold ---------- */
+
+.k3-hero { position: relative; min-height: min(100svh, 62rem); display: grid; align-items: end; overflow: hidden; }
+.k3-hero__plate { position: absolute; inset: 0; }
+.k3-hero__plate img { width: 100%; height: 115%; object-fit: cover; object-position: 66% 44%; }
+.k3-hero__plate::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(247, 242, 231, 0.96) 0%, rgba(247, 242, 231, 0.78) 38%, rgba(247, 242, 231, 0) 70%),
+              linear-gradient(0deg, rgba(247, 242, 231, 0.9) 0%, rgba(247, 242, 231, 0) 30%);
+}
+.k3-hero__inner {
+  position: relative; width: var(--wrap); margin-inline: auto;
+  padding: calc(var(--header-h) + var(--announce-h) + var(--s7)) 0 var(--s7);
+}
+.k3-hero__title { font-size: clamp(3.4rem, min(11vw, 15vh), 9rem); margin: var(--s4) 0 var(--s5); }
+.k3-hero__sub { max-width: 34ch; font-size: var(--fs-md); color: var(--ink-70); }
+.k3-hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s5); margin-top: var(--s6); }
+.k3-proof { display: inline-flex; align-items: center; gap: var(--s3); font-family: var(--display); font-size: var(--fs-sm); color: var(--ink-70); }
+.k3-proof .stars svg { width: 0.9rem; height: 0.9rem; }
+.k3-proof a { text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 47.99rem) {
+  .k3-hero__plate::after {
+    background: linear-gradient(0deg, rgba(247, 242, 231, 1) 18%, rgba(247, 242, 231, 0.7) 52%, rgba(247, 242, 231, 0.1) 100%);
+  }
+}
+
+/* --- Buy module: the Shopify PDP structure, set like a magazine page ---- */
+
+.k3-buy { padding-block: var(--band); background: var(--bone); border-block: 1px solid var(--rule); }
+.k3-buy__grid { width: var(--wrap); margin-inline: auto; display: grid; gap: var(--s7); align-items: center; }
+@media (min-width: 60rem) { .k3-buy__grid { grid-template-columns: 1.05fr 1fr; gap: var(--s9); } }
+
+.k3-buy__media { position: relative; margin: 0; }
+.k3-buy__media .k3-frame { aspect-ratio: 4 / 5; }
+.k3-buy__bottle {
+  position: absolute; right: -4%; bottom: -6%; width: 26%;
+  filter: drop-shadow(0 30px 40px rgba(28, 28, 28, 0.22));
+}
+.k3-buy__tag {
+  position: absolute; left: var(--s4); top: var(--s4);
+  background: var(--coral); color: var(--white); padding: 0.6rem 0.9rem;
+}
+.k3-buy .h1 { margin: var(--s3) 0 var(--s4); }
+.k3-buy .buy__desc { margin-top: var(--s5); color: var(--ink-70); max-width: 44ch; }
+.k3-buy .buy__price { margin: var(--s5) 0; }
+.k3-buy .buy__block { margin-bottom: var(--s5); }
+.k3-assure { display: grid; gap: var(--s2); margin: var(--s5) 0; padding: 0; list-style: none; font-size: var(--fs-sm); color: var(--ink-70); }
+.k3-assure li { display: flex; gap: var(--s3); align-items: baseline; }
+.k3-assure li::before { content: ""; flex: none; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--coral); transform: translateY(-1px); }
+
+/* --- Frames, from the lookbook ------------------------------------------ */
+
+.k3-frame { position: relative; overflow: hidden; display: block; }
+.k3-frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 1600ms var(--ease); }
+.js [data-anim="zoom"].k3-frame { transform: none; }
+.js .k3-frame[data-anim="zoom"] img { transform: scale(1.09); }
+.js .k3-frame.is-in[data-anim="zoom"] img { transform: none; }
+
+/* --- Creed: SkinSkool, said editorially instead of in a red box --------- */
+
+.k3-creed { padding-block: var(--band); }
+.k3-creed__grid { width: var(--wrap); margin-inline: auto; display: grid; gap: var(--s7); align-items: center; }
+@media (min-width: 60rem) { .k3-creed__grid { grid-template-columns: 1.25fr 1fr; gap: var(--s9); } }
+.k3-creed .display { margin: var(--s5) 0 var(--s6); }
+.k3-creed__body { color: var(--ink-70); max-width: 44ch; }
+.k3-creed__body p + p { margin-top: 1em; }
+.k3-creed__body .btn { margin-top: var(--s6); }
+.k3-creed__plate { margin: 0; }
+.k3-creed__plate .k3-frame { aspect-ratio: 4 / 5; }
+.k3-creed__plate figcaption { margin-top: var(--s3); text-align: right; color: var(--ink-50); }
+
+.k3-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s4); margin-top: var(--s7); border-top: 1px solid var(--rule); padding-top: var(--s5); }
+.k3-stats b { display: block; font-family: var(--display); font-style: italic; font-weight: 500; font-size: var(--fs-2xl); letter-spacing: -0.03em; line-height: 1; color: var(--coral); }
+.k3-stats span { display: block; margin-top: var(--s2); }
+
+/* --- The hung wall of oils ---------------------------------------------- */
+
+.k3-salon { padding-block: var(--band); background: var(--cream); overflow: hidden; }
+.k3-salon__head { width: var(--wrap); margin: 0 auto var(--s8); display: grid; gap: var(--s5); }
+@media (min-width: 60rem) { .k3-salon__head { grid-template-columns: 1.4fr 1fr; align-items: end; } }
+.k3-salon__head p { color: var(--ink-70); max-width: 40ch; }
+
+.k3-wall { width: var(--wrap); margin-inline: auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s6) var(--s5); }
+@media (min-width: 48rem) { .k3-wall { grid-template-columns: repeat(4, 1fr); gap: var(--s7) var(--s6); } }
+.k3-hung { margin: 0; text-align: center; }
+.k3-hung:nth-child(4n+2) { margin-top: clamp(1.5rem, 7vw, 6rem); }
+.k3-hung:nth-child(4n+4) { margin-top: clamp(0rem, 3vw, 2.5rem); }
+.k3-hung img { width: 100%; aspect-ratio: 1; object-fit: contain; transition: transform 900ms var(--ease); }
+.k3-hung--plate img { object-fit: cover; aspect-ratio: 4 / 5; }
+.k3-hung:hover img { transform: scale(1.05) rotate(-1.5deg); }
+.k3-hung figcaption { margin-top: var(--s3); }
+.k3-hung figcaption small { display: block; margin-top: var(--s2); font-family: var(--serif); font-size: var(--fs-xs); letter-spacing: 0; text-transform: none; color: var(--ink-50); }
+.k3-wall:hover .k3-hung { opacity: 0.45; transition: opacity 600ms var(--ease); }
+.k3-wall:hover .k3-hung:hover { opacity: 1; }
+.k3-hung:hover figcaption { color: var(--coral); }
+
+.k3-salon__foot { width: var(--wrap); margin: var(--s8) auto 0; display: flex; flex-wrap: wrap; gap: var(--s5); align-items: center; justify-content: center; }
+
+/* --- How to use, three beats -------------------------------------------- */
+
+.k3-ritual { position: relative; background: var(--navy); color: var(--white); overflow: hidden; }
+.k3-ritual__grid { display: grid; }
+@media (min-width: 60rem) { .k3-ritual__grid { grid-template-columns: 1fr 1fr; } }
+.k3-ritual__media { margin: 0; min-height: 22rem; }
+.k3-ritual__media img { width: 100%; height: 100%; object-fit: cover; }
+.k3-ritual__copy { padding: var(--band) var(--gutter); display: grid; align-content: center; gap: var(--s6); }
+@media (min-width: 60rem) { .k3-ritual__copy { padding-inline: var(--s9) var(--gutter); } }
+.k3-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s5); }
+.k3-steps li { display: grid; grid-template-columns: 3rem 1fr; gap: var(--s4); align-items: baseline; border-top: 1px solid var(--on-dark-18); padding-top: var(--s4); }
+.k3-steps b { font-family: var(--display); font-style: italic; font-weight: 500; font-size: var(--fs-xl); color: var(--coral); }
+.k3-steps p { color: var(--on-dark-70); font-size: var(--fs-md); }
+
+/* --- Door: the price promise -------------------------------------------- */
+
+.k3-door { padding-block: calc(var(--band) * 1.2); text-align: center; background: var(--coral); color: var(--white); }
+.k3-door__inner { width: var(--wrap); margin-inline: auto; display: grid; justify-items: center; gap: var(--s6); }
+.k3-door .label { color: rgba(255, 255, 255, 0.8); }
+.k3-door .display { max-width: 18ch; }
+
+/* --- Reviews: score summary + the video wall ---------------------------- */
+
+.k3-reviews { padding-block: var(--band); }
+.k3-reviews__inner { width: var(--wrap); margin-inline: auto; }
+.k3-reviews__head { display: grid; gap: var(--s6); margin-bottom: var(--s8); align-items: end; }
+@media (min-width: 60rem) { .k3-reviews__head { grid-template-columns: 1.3fr 1fr; } }
+.k3-score { display: flex; gap: var(--s5); align-items: center; }
+.k3-score__num { font-family: var(--display); font-style: italic; font-weight: 500; font-size: var(--fs-3xl); letter-spacing: -0.04em; line-height: 1; }
+.k3-score p { font-size: var(--fs-sm); color: var(--ink-70); }
+.k3-reviews .reviews__quote { margin-top: var(--s8); }
+
+/* --- FAQ ---------------------------------------------------------------- */
+
+.k3-faq { padding-block: var(--band); background: var(--bone); border-top: 1px solid var(--rule); }
+.k3-faq__grid { width: var(--wrap); margin-inline: auto; display: grid; gap: var(--s7); }
+@media (min-width: 60rem) { .k3-faq__grid { grid-template-columns: 1fr 1.5fr; } }
+.k3-faq__grid .lede { margin-top: var(--s4); color: var(--ink-70); }
+
+/* --- Sticky buy bar, once the main buy button is off-screen -------------- */
+
+.k3-sticky {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s4);
+  padding: var(--s3) var(--gutter);
+  background: rgba(255, 252, 245, 0.94); backdrop-filter: blur(12px);
+  border-top: 1px solid var(--rule);
+  transform: translateY(110%); transition: transform 520ms var(--ease);
+}
+.k3-sticky.is-shown { transform: none; }
+.k3-sticky__id { display: flex; align-items: center; gap: var(--s3); min-width: 0; }
+.k3-sticky__id img { width: 1.6rem; height: auto; }
+.k3-sticky__id p { font-family: var(--display); font-style: italic; font-size: var(--fs-sm); line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.k3-sticky__id span { display: block; font-style: normal; color: var(--ink-50); font-size: var(--fs-xs); }
+.k3-sticky .btn { flex: none; }
