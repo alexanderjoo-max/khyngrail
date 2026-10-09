@@ -261,3 +261,30 @@
   .page--k3 .creds { margin-top: -9.5rem; height: 9.5rem; }
   .k3-hero .k3-hero__inner { padding-bottom: 12rem; }
 }
+
+/* --- Home, simplified (client cut) ------------------------------------- */
+
+.k3-hero__title { white-space: nowrap; }
+
+/* Oil band: copy left, the 27 botanicals on a cream shelf right */
+.k3-oil { position: relative; overflow: hidden; color: var(--white); }
+.k3-oil__plate { position: absolute; inset: 0; margin: 0; }
+.k3-oil__plate img { width: 100%; height: 115%; object-fit: cover; }
+.k3-oil__plate::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20, 16, 8, 0.6) 0%, rgba(20, 16, 8, 0.2) 55%, rgba(20, 16, 8, 0.05) 100%); }
+.k3-oil__inner { position: relative; width: var(--wrap); margin-inline: auto; padding-block: var(--band); display: grid; gap: var(--s7); align-items: center; }
+@media (min-width: 60rem) { .k3-oil__inner { grid-template-columns: 0.8fr 1.2fr; gap: var(--s8); } }
+.k3-oil__copy { display: grid; gap: var(--s5); }
+.k3-oil__copy .label { color: rgba(255, 255, 255, 0.85); }
+.k3-oil__copy p:not(.label) { color: rgba(255, 255, 255, 0.92); max-width: 40ch; }
+.k3-oil__shelf { min-width: 0; background: rgba(255, 252, 245, 0.94); border-radius: 1.5rem; padding: var(--s6) var(--s5) var(--s5); color: var(--ink); box-shadow: 0 30px 70px rgba(20, 16, 8, 0.25); }
+.k3-bots { padding: 0 !important; background: none !important; }
+
+/* Pile of bottles with a single centred CTA */
+.k3-pile { position: relative; min-height: min(90svh, 56rem); display: grid; place-items: center; overflow: hidden; }
+.k3-pile__plate { position: absolute; inset: 0; margin: 0; }
+.k3-pile__plate img { width: 100%; height: 112%; object-fit: cover; }
+.k3-pile__btn { position: relative; font-size: var(--fs-md); padding: 1.1em 3.4em; }
+.k3-bots .slider__track { padding-inline: var(--s2); }
+.k3-bots .bot { flex-basis: clamp(6.5rem, 9vw, 8.5rem); }
+.k3-bots .slider__arrow--prev { left: -0.5rem; }
+.k3-bots .slider__arrow--next { right: -0.5rem; }
