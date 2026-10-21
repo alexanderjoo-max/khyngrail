@@ -1,0 +1,66 @@
+
+/* --- Shopify footer: header-nav type, roomier margins --------------------- */
+.site-footer { padding-block: var(--s9) var(--s7); }
+.site-footer .footer-inner {
+  width: auto;
+  padding-inline: max(2rem, var(--gutter));
+  align-items: center;
+}
+@media (min-width: 48rem) {
+  .site-footer .footer-inner { padding-inline: max(3.5rem, var(--gutter)); }
+}
+.footer-brand__logo { width: clamp(9rem, 14vw, 12rem); margin-bottom: 0; }
+
+.footer-nav { display: flex; flex-wrap: wrap; gap: var(--s4) var(--s6); }
+.footer-nav a {
+  position: relative;
+  font-family: var(--display); font-weight: 500;
+  font-size: var(--fs-xs); letter-spacing: var(--track-mid); text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+  padding-block: 0.4rem;
+}
+.footer-nav a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+  height: 1px; background: currentColor;
+  transform: scaleX(0); transform-origin: right;
+  transition: transform 380ms var(--ease);
+}
+.footer-nav a:hover, .footer-nav a:focus-visible { color: var(--white); }
+.footer-nav a:hover::after, .footer-nav a:focus-visible::after { transform: scaleX(1); transform-origin: left; }
+@media (max-width: 47.99rem) {
+  .footer-nav { flex-direction: column; gap: var(--s3); }
+}
+
+.footer-legal {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s3);
+  margin-top: var(--s8); padding-top: var(--s5);
+  padding-inline: max(2rem, var(--gutter));
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: var(--display); font-size: var(--fs-micro);
+  letter-spacing: var(--track-wide); text-transform: uppercase;
+  color: var(--on-dark-45);
+}
+@media (min-width: 48rem) {
+  .footer-legal { padding-inline: max(3.5rem, var(--gutter)); }
+}
+
+/* --- Plain store pages (terms, privacy, returns) ------------------------- */
+.kg-page {
+  max-width: 46rem; margin-inline: auto;
+  padding: calc(var(--band) + 3rem) max(2rem, var(--gutter)) var(--band);
+  box-sizing: content-box;
+}
+.kg-page__head { display: grid; gap: var(--s4); margin-bottom: var(--s8); padding-bottom: var(--s6); border-bottom: 1px solid rgba(28, 28, 28, 0.12); }
+.kg-page__body { font-family: var(--serif); font-size: var(--fs-md); line-height: 1.7; color: var(--ink-70); }
+.kg-page__body > * + * { margin-top: 1.1em; }
+.kg-page__body h1, .kg-page__body h2, .kg-page__body h3, .kg-page__body h4, .kg-page__body strong:only-child {
+  display: block;
+  font-family: var(--display); font-weight: 500; font-style: normal;
+  font-size: var(--fs-xs); letter-spacing: var(--track-wide); text-transform: uppercase;
+  color: var(--ink); margin-top: var(--s7); line-height: 1.3;
+}
+.kg-page__body a { color: var(--coral); text-decoration: underline; text-underline-offset: 0.2em; }
+.kg-page__body ul, .kg-page__body ol { padding-left: 1.25em; }
+.kg-page__body ul { list-style: disc; }
+.kg-page__body ol { list-style: decimal; }
+.kg-page__body li + li { margin-top: 0.4em; }
