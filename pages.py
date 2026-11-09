@@ -339,7 +339,7 @@ FAQ = [
      "contract, no box inside a box."),
     ("What’s your name all about, Khyn &amp; Grail?",
      "Khyn is pronounced KIN — family. Grail is the bottle you have been hunting."),
-    ("Is the KG185 Botanical Oils Facial Serum vegan?",
+    ("Is the KG215 Botanical Oils Facial Serum vegan?",
      "Yes. The blend is vegan, never tested on animals, and suitable for all skin types "
      "including sensitive."),
 ]

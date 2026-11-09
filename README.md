@@ -82,7 +82,6 @@ Left exactly as the design has them. Say the word and I will align them.
 
 - **Review score.** `4.59 out of 5` sits beside a distribution (137/10/3/0/0
   across 150 reviews) that averages 4.89.
-- **Product code.** The last FAQ says `KG185`; everything else says `KG215`.
 - **Origin.** The credential bar says *Made in USA*; the carton in the
   photography reads *Made in France*.
 - **Review posters** are cropped from a screenshot of the old review widget, so
