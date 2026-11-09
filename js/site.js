@@ -38,7 +38,7 @@
   var cartCount = $("[data-cart-count]");
   var lastFocus = null;
 
-  var PRODUCT = { sku: "KG215", name: "Botanical Oils Facial Serum", price: 69, img: "assets/img/bottle.png" };
+  var PRODUCT = { sku: "KG215", name: "Botanical Oils Facial Serum", price: 65, img: "assets/img/bottle.png" };
   var qty = 0;
 
   function money(n) { return "$" + n.toFixed(2); }
@@ -233,6 +233,31 @@
         main.alt = thumb.dataset.alt || "";
         main.classList.remove("is-swapping");
       }, 220);
+    });
+  }
+
+  /* --- Pack picker: price, gallery image and the variant that gets added - */
+
+  var packs = $("[data-packs]");
+  if (packs) {
+    packs.addEventListener("change", function (e) {
+      var input = e.target.closest("input[name='pack']");
+      if (!input) return;
+      $$("[data-pack-price]").forEach(function (el) { el.textContent = input.dataset.price; });
+      var add = $("[data-add]");
+      if (add && input.dataset.variantId) add.dataset.variantId = input.dataset.variantId;
+      if (typeof PRODUCT !== "undefined" && input.dataset.amount) {
+        PRODUCT.price = Number(input.dataset.amount);
+        PRODUCT.name = "Botanical Oils Facial Serum — " + input.dataset.title;
+      }
+      var img = input.dataset.img;
+      if (!img || !gallery) return;
+      var thumb = $$("[data-thumb]", gallery).filter(function (t) { return t.dataset.full === img; })[0];
+      if (thumb) { thumb.click(); return; }
+      var main = $("[data-gallery-main]", gallery);
+      $$("[data-thumb]", gallery).forEach(function (t) { t.setAttribute("aria-current", "false"); });
+      main.classList.add("is-swapping");
+      setTimeout(function () { main.src = img; main.classList.remove("is-swapping"); }, 220);
     });
   }
 

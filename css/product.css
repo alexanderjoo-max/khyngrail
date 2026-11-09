@@ -63,6 +63,32 @@
 .chip:hover { border-color: var(--rule-strong); }
 .chip[aria-pressed="true"] { border-color: var(--coral); color: var(--coral); background: var(--bone); }
 
+/* --- Pack picker (Single / 2-Pack / 4-Pack) ------------------------------ */
+
+.packs { border: 0; padding: 0; margin-inline: 0; min-width: 0; }
+.packs legend { padding: 0; }
+.packs__list { display: grid; gap: var(--s2); }
+.pack {
+  position: relative; cursor: pointer;
+  display: grid; grid-template-columns: 1fr auto; align-items: baseline;
+  column-gap: var(--s4); row-gap: 0.15rem;
+  padding: var(--s3) var(--s4);
+  border: 1px solid var(--rule);
+  transition: border-color var(--t) var(--ease), background var(--t) var(--ease);
+}
+.pack:hover { border-color: var(--rule-strong); }
+.pack input { position: absolute; opacity: 0; pointer-events: none; }
+.pack:has(input:checked) { border-color: var(--coral); background: var(--bone); }
+.pack:has(input:focus-visible) { outline: 2px solid var(--coral); outline-offset: 2px; }
+.pack__name { font-family: var(--display); font-style: italic; font-weight: 500; font-size: var(--fs-md); letter-spacing: -0.02em; }
+.pack__price { font-family: var(--display); font-style: italic; font-size: var(--fs-md); letter-spacing: -0.02em; grid-row: 1; grid-column: 2; }
+.pack__meta { font-size: var(--fs-xs); color: var(--ink-50); }
+.pack__save {
+  grid-row: 2; grid-column: 2; justify-self: end;
+  font-family: var(--display); font-size: var(--fs-micro);
+  letter-spacing: var(--track-mid); text-transform: uppercase; color: var(--coral);
+}
+
 /* --- Quantity & add ------------------------------------------------------ */
 
 .buy__row { display: flex; gap: var(--s3); align-items: stretch; flex-wrap: wrap; }
@@ -92,6 +118,30 @@
 .btn__swap > span:last-child { opacity: 0; transform: translateY(60%); }
 .btn.is-added .btn__swap > span:first-child { opacity: 0; transform: translateY(-60%); }
 .btn.is-added .btn__swap > span:last-child { opacity: 1; transform: none; }
+
+/* --- The one that sold out / what it is / what it does ------------------- */
+
+.why { background: var(--cream); padding: var(--band) 0; border-top: 1px solid var(--rule); }
+.why__inner {
+  width: var(--wrap); margin-inline: auto;
+  display: grid; gap: var(--s8);
+}
+@media (min-width: 60rem) {
+  .why__inner { grid-template-columns: 1fr 1fr; gap: clamp(3rem, 7vw, 8rem); align-items: start; }
+  .why__story { position: sticky; top: calc(var(--header-h) + var(--s6)); }
+}
+.why__title { font-size: clamp(2.6rem, 6vw, 5.2rem); max-width: 12ch; }
+.why__lede { margin-top: var(--s6); font-size: var(--fs-md); line-height: 1.6; max-width: 40ch; color: var(--ink-70); }
+.why__block + .why__block { margin-top: var(--s7); }
+.why__block .h3 { margin-bottom: var(--s4); }
+.why__block > p { line-height: 1.6; max-width: 46ch; color: var(--ink-70); }
+.why__list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--rule); }
+.why__list li { padding: var(--s4) 0; border-bottom: 1px solid var(--rule); line-height: 1.6; color: var(--ink-70); }
+.why__list strong {
+  display: block; margin-bottom: var(--s1);
+  font-family: var(--display); font-style: italic; font-weight: 500;
+  font-size: var(--fs-md); letter-spacing: -0.02em; color: var(--ink);
+}
 
 /* --- How to use ---------------------------------------------------------- */
 

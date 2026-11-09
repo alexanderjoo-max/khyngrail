@@ -64,8 +64,11 @@ instantly, marquees stop, the page curtain is removed.
 
 ## Copy
 
-All visible copy is taken verbatim from the KG215 design. Price is `$69 —
-Preorder, ships November`; there is no size selector and no subscribe option. Two places have no
+All visible copy is taken verbatim from the KG215 design and the client's November
+edits. Price is `$65 — Preorder, ships January`, with Single / 2-Pack / 4-Pack options
+($65 / $120 / $220). In the Shopify theme every price, the per-bottle price and the
+"Save" amount come from the product's variants in the admin; the pack shots
+(`pack-1/2/4.jpg`) are used unless a variant has its own image. Two places have no
 source copy behind them:
 
 - **FAQ answers.** The design lists the six questions with no answers. The
