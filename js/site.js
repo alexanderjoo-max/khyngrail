@@ -246,6 +246,7 @@
       $$("[data-pack-price]").forEach(function (el) { el.textContent = input.dataset.price; });
       var add = $("[data-add]");
       if (add && input.dataset.variantId) add.dataset.variantId = input.dataset.variantId;
+      if (add && input.dataset.available) add.disabled = input.dataset.available !== "true";
       if (typeof PRODUCT !== "undefined" && input.dataset.amount) {
         PRODUCT.price = Number(input.dataset.amount);
         PRODUCT.name = "Botanical Oils Facial Serum — " + input.dataset.title;

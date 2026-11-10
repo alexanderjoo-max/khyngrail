@@ -66,10 +66,13 @@ instantly, marquees stop, the page curtain is removed.
 
 All visible copy is taken verbatim from the KG215 design and the client's November
 edits. Price is `$65 — Preorder, ships January`, with Single / 2-Pack / 4-Pack options
-($65 / $120 / $220). In the Shopify theme every price, the per-bottle price and the
-"Save" amount come from the product's variants in the admin; the pack shots
-(`pack-1/2/4.jpg`) are used unless a variant has its own image. Two places have no
-source copy behind them:
+($65 / $120 / $220). In the Shopify theme the three packs are the store's three
+products: the featured product (single) plus the "2-pack product" and "4-pack product"
+theme settings. Each uses its `na` region variant (MLVeda currency app), else its first
+available variant. Every price, the per-bottle price and the "Save" amount come from
+those products in the admin; the images are the theme's `pack-1/2/4.jpg`. The product
+name on the page is fixed copy (KG215 / Botanical Oils Facial Serum), not the admin
+title. Two places have no source copy behind them:
 
 - **FAQ answers.** The design lists the six questions with no answers. The
   answers on `about.html` are placeholder — replace them with the real ones.

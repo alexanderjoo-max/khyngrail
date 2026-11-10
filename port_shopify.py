@@ -108,59 +108,91 @@ def swap(html, old, new):
     assert html.count(old) == 1, "port: expected exactly one of %r" % old[:80]
     return html.replace(old, new)
 
-# Pack picker: one radio per Shopify variant (e.g. Single / 2-Pack / 4-Pack). Prices, per-bottle
-# price and savings all come from the admin. A variant's own image wins; otherwise the theme's
-# pack-1/2/4.jpg shots are used. Hidden when the product has no variants.
-PACKS = """{%- unless product.has_only_default_variant -%}
-            {%- assign kg_sel = product.selected_or_first_available_variant -%}
-            {%- assign kg_unit = product.variants.first.price -%}
-            <fieldset class="packs" data-packs data-anim="rise" style="--d: 230ms">
+# Pack picker. The store sells the packs as three products (single, 2-pack, 4-pack), each with
+# the MLVeda currency app's region variants (ca / na / gb / eu / intl). So each pack is a product:
+# the single is the theme's featured product, the packs are the "2-pack product" / "4-pack product"
+# theme settings. Each pack uses its "na" variant (else the first available one); every price, the
+# per-bottle price and the savings come from the admin. Images are the theme's pack-1/2/4.jpg shots.
+PRELUDE = """{%- liquid
+  if settings.kg_product != blank
+    assign kg_single = settings.kg_product
+  else
+    assign kg_single = product
+  endif
+  assign kg_single_v = kg_single.selected_or_first_available_variant
+  for v in kg_single.variants
+    if v.title == 'na'
+      assign kg_single_v = v
+    endif
+  endfor
+  assign kg_page_v = kg_single_v
+  if product.id == settings.kg_pack_2.id or product.id == settings.kg_pack_4.id
+    assign kg_page_v = product.selected_or_first_available_variant
+    for v in product.variants
+      if v.title == 'na'
+        assign kg_page_v = v
+      endif
+    endfor
+  endif
+-%}
+"""
+
+PACKS = """<fieldset class="packs" data-packs data-anim="rise" style="--d: 270ms">
               <legend class="label buy__legend">Choose your pack:</legend>
               <div class="packs__list">
-                {%- for variant in product.variants -%}
+                {%- assign kg_counts = '1,2,4' | split: ',' -%}
+                {%- for kg_count in kg_counts -%}
                   {%- liquid
-                    assign n = variant.title | split: '-' | first | split: ' ' | first | plus: 0
-                    if n < 1
-                      assign n = 1
-                    endif
-                    assign each = variant.price | divided_by: n
-                    assign full = kg_unit | times: n
-                    assign save = full | minus: variant.price
-                    if variant.featured_image
-                      assign img = variant.featured_image | image_url: width: 1600
-                    elsif n == 1 or n == 2 or n == 4
-                      assign img = 'pack-' | append: n | append: '.jpg' | asset_url
-                    else
-                      assign img = ''
-                    endif
+                    assign n = kg_count | plus: 0
+                    case n
+                      when 1
+                        assign kg_p = kg_single
+                      when 2
+                        assign kg_p = settings.kg_pack_2
+                      when 4
+                        assign kg_p = settings.kg_pack_4
+                    endcase
+                  -%}
+                  {%- if kg_p != blank -%}
+                  {%- liquid
+                    assign kg_v = kg_p.selected_or_first_available_variant
+                    for v in kg_p.variants
+                      if v.title == 'na'
+                        assign kg_v = v
+                      endif
+                    endfor
+                    assign each = kg_v.price | divided_by: n
+                    assign save = kg_single_v.price | times: n | minus: kg_v.price
+                    case n
+                      when 1
+                        assign kg_name = 'Single'
+                      else
+                        assign kg_name = n | append: '-Pack'
+                    endcase
                   -%}
                 <label class="pack">
-                  <input type="radio" name="pack" value="{{ variant.id }}" data-variant-id="{{ variant.id }}" data-price="{{ variant.price | money_without_trailing_zeros }}" data-img="{{ img }}"{% if variant.id == kg_sel.id %} checked{% endif %}{% unless variant.available %} disabled{% endunless %} />
-                  <span class="pack__name">{{ variant.title }}</span>
+                  <input type="radio" name="pack" value="{{ kg_v.id }}" data-variant-id="{{ kg_v.id }}" data-available="{{ kg_v.available }}" data-price="{{ kg_v.price | money_without_trailing_zeros }}" data-img="{{ 'pack-' | append: n | append: '.jpg' | asset_url }}"{% if kg_v.id == kg_page_v.id %} checked{% endif %} />
+                  <span class="pack__name">{{ kg_name }}</span>
                   <span class="pack__meta">{{ n }} bottle{% if n > 1 %}s &middot; {{ each | money_without_trailing_zeros }} each{% endif %}</span>
-                  <span class="pack__price">{{ variant.price | money_without_trailing_zeros }}</span>
+                  <span class="pack__price">{{ kg_v.price | money_without_trailing_zeros }}</span>
                   {%- if save > 0 %}<span class="pack__save">Save {{ save | money_without_trailing_zeros }}</span>{% endif %}
                 </label>
+                  {%- endif -%}
                 {%- endfor -%}
               </div>
-            </fieldset>
-            {%- endunless -%}"""
+            </fieldset>"""
 
 pdp = liquidify(prod[0])
-pdp = swap(pdp, '<p class="spot__sku" data-anim="rise">KG215</p>',
-           '<p class="spot__sku" data-anim="rise">{{ product.selected_or_first_available_variant.sku | default: "KG215" }}</p>')
-pdp = swap(pdp, '>Botanical Oils Facial Serum</h1>', '>{{ product.title }}</h1>')
+pdp = swap(pdp, '<span data-single-price>$65</span>',
+           '<span data-single-price>{{ kg_single_v.price | money_without_trailing_zeros }}</span>')
 pdp = swap(pdp, '<span class="buy__amount" data-pack-price>$65</span>',
-           '<span class="buy__amount" data-pack-price>{{ product.selected_or_first_available_variant.price | money_without_trailing_zeros }}</span>')
+           '<span class="buy__amount" data-pack-price>{{ kg_page_v.price | money_without_trailing_zeros }}</span>')
 pdp = re.sub(r'<fieldset class="packs".*?</fieldset>', lambda m: PACKS, pdp, count=1, flags=re.S)
 pdp = swap(pdp, 'data-add data-k3-main-add',
-           'data-add data-k3-main-add data-variant-id="{{ product.selected_or_first_available_variant.id }}"'
-           '{% unless product.available %} disabled{% endunless %}')
-write_section("kg-product", "KG Product", pdp)
-why = swap(liquidify(prod[1]), '<span data-single-price>$65</span>',
-           '<span data-single-price>{{ product.price_min | money_without_trailing_zeros }}</span>')
-write_section("kg-why", "KG The one that sold out", why)
-write_section("kg-how", "KG How to use", liquidify(prod[2]))
+           'data-add data-k3-main-add data-variant-id="{{ kg_page_v.id }}"'
+           '{% unless kg_page_v.available %} disabled{% endunless %}')
+write_section("kg-product", "KG Product", PRELUDE + pdp)
+write_section("kg-how", "KG How to use", liquidify(prod[1]))
 
 # Extra product sections from the full product.html (botanicals, mosaic, reviews).
 for part in main_children("product.html"):
@@ -198,7 +230,7 @@ def template(path, names):
 
 template("templates/index.json", home_names)
 template("templates/page.json", ["kg-page", "kg-newsletter"])
-template("templates/product.json", ["kg-product", "kg-why", "kg-how", "kg-bots", "kg-marquee", "kg-reviews", "kg-newsletter"])
+template("templates/product.json", ["kg-product", "kg-how", "kg-bots", "kg-marquee", "kg-reviews", "kg-newsletter"])
 about_sections = ["kg-about-hero", "kg-manifesto", "kg-faq", "kg-marquee", "kg-contact", "kg-newsletter"]
 template("templates/index.about.json", about_sections)
 template("templates/page.about-us.json", ["kg-about-hero", "kg-manifesto", "kg-faq", "kg-marquee", "kg-contact", "kg-newsletter"])
@@ -244,7 +276,7 @@ sticky_script = sticky_script.replace(
 <div class="k3-sticky" data-k3-sticky aria-hidden="true">
   <div class="k3-sticky__id">
     <img src="{{ 'bottle.png' | asset_url }}" alt="" width="600" height="1316" />
-    <p>{{ kg_product.title }} <span>""" + PRICE + """ &middot; Preorder, ships January</span></p>
+    <p>Botanical Oils Facial Serum <span>""" + PRICE + """ &middot; Preorder, ships January</span></p>
   </div>
   <a class="btn btn--sm" href="{{ kg_product.url }}" tabindex="-1" data-k3-sticky-add>{% if template.name == 'product' %}Preorder{% else %}Shop now{% endif %}</a>
 </div>
@@ -317,7 +349,13 @@ if "kg_product" not in schema_text:
   }
 ]
 """
-    schema_path.write_text(schema_text)
+if "kg_pack_2" not in schema_text:
+    schema_text = schema_text.replace(
+        '{ "type": "product", "id": "kg_product", "label": "Featured product (home page links and sticky bar)" }',
+        '{ "type": "product", "id": "kg_product", "label": "Featured product (home page links and sticky bar)" },\n'
+        '      { "type": "product", "id": "kg_pack_2", "label": "2-pack product" },\n'
+        '      { "type": "product", "id": "kg_pack_4", "label": "4-pack product" }')
+schema_path.write_text(schema_text)
 
 print("Ported into", THEME)
 
@@ -334,9 +372,11 @@ js = js[:start] + r'''  function money(cents) { return "$" + (cents / 100).toFix
       cartBody.innerHTML = cart.items.map(function (item) {
         return '<div class="cart-item">' +
           (item.image ? '<img src="' + item.image + '" alt="" width="120" />' : "") +
-          "<div><h3>" + item.product_title + "</h3>" +
-          (item.variant_title ? "<p>" + item.variant_title + "</p>" : "") +
-          "<p>" + (item.sku || "") + " · Qty " + item.quantity + "</p>" +
+          "<div><h3>" + item.product_title.replace(/KG185/g, "KG215") + "</h3>" +
+          // The MLVeda region variants (ca, na...) are not worth showing.
+          (item.variant_title && !(item.options_with_values || []).some(function (o) { return /mlveda/i.test(o.name); })
+            ? "<p>" + item.variant_title + "</p>" : "") +
+          "<p>Qty " + item.quantity + "</p>" +
           "<p>" + money(item.final_line_price) + "</p></div></div>";
       }).join("");
     }
